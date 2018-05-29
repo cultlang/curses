@@ -1,0 +1,31 @@
+(require "builtin:cultlang/curses")
+
+(define main (function ()
+  (curses/setlocale "")
+  (curses/initscr)
+  (curses/raw)
+
+  (curses/keypad true)
+  (curses/noecho)
+
+  (curses/border "||--++++")
+
+
+  (define ch (variable (curses/getch)))
+
+  (cond (== ch (curses/keyf 1i8))
+    (curses/printw "F1 Key Pressed")
+    (do
+      (curses/printw "The pressed key is")  
+      (curses/attr-on (curses/attr/invis))
+      (curses/printw (curses/string ch))
+      (curses/attr-off (curses/attr/invis))
+    )
+  )
+
+  (curses/refresh)
+  (curses/getch)
+  (curses/endwin)
+))
+
+(main)
