@@ -70,6 +70,8 @@ void cultlang::curses::make_bindings(craft::instance<craft::lisp::Module> ret)
 	//})
 
 	// output
+	lMM(MoD"/move", [](t_I32 y, t_I32 x) { move(*y, *x); });
+	lMM(MoD"/move", [](t_Win w, t_I32 y, t_I32 x) { wmove((WINDOW*)w->data, *y, *x); });
 	lMM(MoD"/addch", [](t_Str s) { addch(s->at(0)); });
 	lMM(MoD"/addch", [](t_Win w,  t_Str s) { waddch((WINDOW*)w->data, s->at(0)); });
 
@@ -92,11 +94,22 @@ void cultlang::curses::make_bindings(craft::instance<craft::lisp::Module> ret)
 
 
 	 
-	lMM(MoD"/color/start-color", []() { return instance<int32_t>::make(start_color()); });
-	lMM(MoD"/color/has-color", []() { return instance<bool>::make(has_colors()); });
-	lMM(MoD"/color/can-change-color", []() { return instance<bool>::make(can_change_color()); });
-	lMM(MoD"/color/init-pair", [](t_I16 pair, t_I16 f, t_I16 b) { return t_I32::make(init_pair(*pair, *f, *b)); });
-	lMM(MoD"/color/init-color", [](t_I16 color, t_I16 r, t_I16 g, t_I16 b) { return t_I32::make(init_color(*color, *r, *g, *b)); });
+	lMM(MoD"/start-color", []() { return instance<int32_t>::make(start_color()); });
+	lMM(MoD"/has-color", []() { return instance<bool>::make(has_colors()); });
+	lMM(MoD"/can-change-color", []() { return instance<bool>::make(can_change_color());  });
+	
+	lMM(MoD"/color/black", []() { return t_I16::make(int16_t(COLOR_BLACK)); });
+	lMM(MoD"/color/red", []() { return t_I16::make(int16_t(COLOR_RED)); });
+	lMM(MoD"/color/green", []() { return t_I16::make(int16_t(COLOR_GREEN)); });
+	lMM(MoD"/color/yellow", []() { return t_I16::make(int16_t(COLOR_YELLOW)); });
+	lMM(MoD"/color/blue", []() { return t_I16::make(int16_t(COLOR_BLUE)); });
+	lMM(MoD"/color/magenta", []() { return t_I16::make(int16_t(COLOR_MAGENTA)); });
+	lMM(MoD"/color/white", []() { return t_I16::make(int16_t(COLOR_WHITE)); });
+
+	lMM(MoD"/init-pair", [](t_I16 pair, t_I16 f, t_I16 b) { return t_I32::make(init_pair(*pair, *f, *b)); });
+	lMM(MoD"/init-color", [](t_I16 color, t_I16 r, t_I16 g, t_I16 b) { return t_I32::make(init_color(*color, *r, *g, *b)); });
+
+	lMM(MoD"/color-pair", [](t_I16 i) {  return t_Attr::make(COLOR_PAIR(*i)); });
 
 	lMM(MoD"/attr-on", [](t_Attr s) {  t_I32::make(attron(*s)); });
 	lMM(MoD"/attr-on", [](t_Win w, t_Attr s) { wattron((WINDOW*)w->data, *s); });

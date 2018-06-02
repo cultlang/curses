@@ -4,13 +4,63 @@
   (curses/setlocale "")
   (curses/initscr)
   (curses/raw)
-
+  (curses/start-color)
   (curses/keypad true)
   (curses/noecho)
 
   (curses/border "||--++++")
-
-
+  
+  (curses/init-pair 1i16 (curses/color/red) (curses/color/green))
+  (curses/init-pair 2i16 (curses/color/red) (curses/color/blue))
+  (curses/init-pair 3i16 (curses/color/green) (curses/color/black))
+  
+  (curses/attr-on (curses/color-pair 1i16))
+  (curses/move 1i32 1i32)
+  
+  
+  (curses/attr-on (curses/color-pair 1i16))
+  (curses/printw "This is the PDCurses implementation of Curses.")  
+  (curses/attr-off (curses/color-pair 1i16))
+  (curses/attr-on (curses/color-pair 2i16))
+  (curses/move 2i32 1i32)
+  (curses/printw "Hosted in Cultlang.")  
+  (curses/attr-off (curses/color-pair 1i16))
+  
+  ; C
+  (curses/move 4i32 4i32)
+  (curses/hline "=" 8i32)
+  (curses/move 5i32 4i32)
+  (curses/vline "+" 3i32)
+  (curses/move 8i32 4i32)
+  (curses/hline "=" 8i32)
+  
+  
+  ; U
+  (curses/move 4i32 14i32)
+  (curses/vline "+" 4i32)
+  (curses/move 8i32 14i32)
+  (curses/hline "=" 8i32)
+  (curses/move 4i32 21i32)
+  (curses/vline "+" 4i32)
+  
+  ; L
+  (curses/move 4i32 24i32)
+  (curses/vline "+" 4i32)
+  (curses/move 8i32 24i32)
+  (curses/hline "=" 8i32)
+  
+  ; T
+  (curses/move 4i32 34i32)
+  (curses/hline "=" 9i32)
+  (curses/move 4i32 38i32)
+  (curses/vline "+" 5i32)
+  
+  
+  (curses/attr-on (curses/color-pair 3i16))
+  (curses/move 15i32 1i32)
+  (curses/printw "A Text Based Adventure.")  
+  (curses/attr-off (curses/color-pair 1i16))
+  
   (define ch (variable (curses/getch)))
 
   (cond (== ch (curses/keyf 1i8))
