@@ -4,8 +4,8 @@
 #include "all.h"
 
 // Vendor
-#include "curses/pdcwin.h"
-#include "curses/panel.h"
+#include "pdcwin.h"
+#include "panel.h"
 
 using namespace craft;
 using namespace craft::lisp;
